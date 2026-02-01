@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Can You Be My Valentine?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      color: #ff4d6d;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    button {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #e63b5b;
+    }
+
+    .options label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- FORM -->
+  <form id="valentineForm">
+
+    <!-- Welcome -->
+    <div class="question active">
+      <h2>Hey Vedant 👋</h2>
+      <p>Welcome… let’s see if you can be my Valentine 💖</p>
+      <button type="button" onclick="next()">Start</button>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question">
+      <h2>1️.What will you do if you find someone else prettier than me?</h2>
+      <div class="options">
+        <label><input type="radio" name="Q1" required> Go to her and praise her for her beauty.</label>
+        <label><input type="radio" name="Q1"> Ignore her.</label>
+        <label><input type="radio" name="Q1"> There is no one who can be prettier than you.</label>
+      </div>
+      <button type="button" onclick="next()">Next</button>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question">
+      <h2>2️.If you have 1M rupees , what will you do?</h2>
+      <div class="options">
+        <label><input type="radio" name="Q2" required> Buy a PS5 for me.</label>
+        <label><input type="radio" name="Q2"> Save for my future.</label>
+        <label><input type="radio" name="Q2"> Spend it on you to make you happy 😌.</label>
+      </div>
+      <button type="button" onclick="next()">Next</button>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question">
+      <h2>3️. Your favourite thing about me?</h2>
+      <div class="options">
+        <label><input type="radio" name="Q3" required> My heart</label>
+        <label><input type="radio" name="Q3"> My mind</label>
+        <label><input type="radio" name="Q3"> Everything 💘</label>
+      </div>
+      <button type="button" onclick="next()">Next</button>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question">
+      <h2>4️. Are you serious about me?</h2>
+      <div class="options">
+        <label><input type="radio" name="Q4" required> No, I will move on with someone else.</label>
+        <label><input type="radio" name="Q4"> 80% in</label>
+        <label><input type="radio" name="Q4"> Always you </label>
+      </div>
+      <button type="button" onclick="next()">Next</button>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question">
+      <h2>💌 Any message for me?</h2>
+      <textarea name="Message" placeholder="Type something for me..." required></textarea>
+      <button type="button" onclick="submitForm()">Submit</button>
+    </div>
+
+    <!-- Final -->
+    <div class="question">
+      <h2>🎉 Congratulations 🥰</h2>
+      <p>You are officially my Valentine 💖<br>Happy Valentine’s Day ❤️</p>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  let current = 0;
+  const questions = document.querySelectorAll(".question");
+
+  function next() {
+    questions[current].classList.remove("active");
+    current++;
+    questions[current].classList.add("active");
+  }
+
+  function submitForm() {
+    const form = document.getElementById("valentineForm");
+    const formData = new FormData(form);
+
+    fetch("https://formspree.io/f/xaqbolzk", {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    }).catch(() => {});
+
+    questions[current].classList.remove("active");
+    questions[current + 1].classList.add("active");
+  }
+</script>
+
+</body>
+</html>
